@@ -55,6 +55,7 @@ const MembersModal = () => {
   const { server } = data as { server: ServerWithMembersWithProfiles };
 
   const onKick = async (memberId: string) => {
+    console.log("KCIKED");
     try {
       setLoadingId(memberId);
       const url = qs.stringifyUrl({
@@ -74,6 +75,7 @@ const MembersModal = () => {
   };
 
   const onRoleChange = async (memberId: string, role: MemberRole) => {
+    console.log("CALLEEDD");
     try {
       setLoadingId(memberId);
       const url = qs.stringifyUrl({
@@ -82,6 +84,7 @@ const MembersModal = () => {
           serverId: server?.id,
         },
       });
+      console.log(url);
       const response = await axios.patch(url, { role });
       router.refresh();
       onOpen("members", { server: response.data });
@@ -90,6 +93,10 @@ const MembersModal = () => {
     } finally {
       setLoadingId("");
     }
+  };
+
+  const testButton = () => {
+    console.log("test");
   };
 
   return (
@@ -120,46 +127,45 @@ const MembersModal = () => {
                     <DropdownMenu>
                       <DropdownMenuTrigger>
                         <MoreVertical className="h-4 w-4 text-zinc-500" />
-                        <DropdownMenuContent side="left">
-                          <DropdownMenuSub>
-                            <DropdownMenuSubTrigger className="flex items-center">
-                              <ShieldQuestion className="w-4 h-4 mr-2" />
-                              <span>Role</span>
-                            </DropdownMenuSubTrigger>
-                            <DropdownMenuPortal>
-                              <DropdownMenuSubContent>
-                                <DropdownMenuItem
-                                  onClick={() =>
-                                    onRoleChange(member.id, "GUEST")
-                                  }
-                                >
-                                  <Shield className="h-4 w-4 mr-2" />
-                                  Guest
-                                  {member.role === "GUEST" && (
-                                    <Check className="h-4 w-4 ml-auto" />
-                                  )}
-                                </DropdownMenuItem>
-                                <DropdownMenuItem
-                                  onClick={() =>
-                                    onRoleChange(member.id, "MODERATOR")
-                                  }
-                                >
-                                  <ShieldCheck className="h-4 w-4 mr-2" />
-                                  Moderator
-                                  {member.role === "MODERATOR" && (
-                                    <Check className="h-4 w-4 ml-auto" />
-                                  )}
-                                </DropdownMenuItem>
-                              </DropdownMenuSubContent>
-                            </DropdownMenuPortal>
-                          </DropdownMenuSub>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem onClick={() => onKick(member.id)}>
-                            <Gavel className="h-4 w-4 mr-2" />
-                            Kick
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
                       </DropdownMenuTrigger>
+
+                      <DropdownMenuContent side="left">
+                        <DropdownMenuSub>
+                          <DropdownMenuSubTrigger className="flex items-center">
+                            <ShieldQuestion className="w-4 h-4 mr-2" />
+                            <span>Role</span>
+                          </DropdownMenuSubTrigger>
+                          <DropdownMenuPortal>
+                            <DropdownMenuSubContent>
+                              <DropdownMenuItem
+                                onClick={() => onRoleChange(member.id, "GUEST")}
+                              >
+                                <Shield className="h-4 w-4 mr-2" />
+                                Guest
+                                {member.role === "GUEST" && (
+                                  <Check className="h-4 w-4 ml-auto" />
+                                )}
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                onClick={() =>
+                                  onRoleChange(member.id, "MODERATOR")
+                                }
+                              >
+                                <ShieldCheck className="h-4 w-4 mr-2" />
+                                Moderator
+                                {member.role === "MODERATOR" && (
+                                  <Check className="h-4 w-4 ml-auto" />
+                                )}
+                              </DropdownMenuItem>
+                            </DropdownMenuSubContent>
+                          </DropdownMenuPortal>
+                        </DropdownMenuSub>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem onClick={() => onKick(member.id)}>
+                          <Gavel className="h-4 w-4 mr-2" />
+                          Kick
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
                 )}
