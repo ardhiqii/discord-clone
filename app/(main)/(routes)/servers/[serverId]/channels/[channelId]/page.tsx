@@ -1,5 +1,6 @@
 import ChatHeader from "@/components/chat/chat-header";
 import ChatInput from "@/components/chat/chat-input";
+import ChatMessages from "@/components/chat/chat-messages";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { RedirectToSignIn } from "@clerk/nextjs";
@@ -23,7 +24,7 @@ export default async function ChannelIdPage({ params }: ChannelIdPageProps) {
     },
   });
 
-  const member = await db.member.findMany({
+  const member = await db.member.findFirst({
     where: {
       serverId: params?.serverId,
       profileId: profile.id,
@@ -39,17 +40,25 @@ export default async function ChannelIdPage({ params }: ChannelIdPageProps) {
         serverId={channel.serverId}
         type="channel"
       />
-      <div className="flex-1">
-        Future Messages
-      </div>
+      <ChatMessages
+        member={member}
+        name={channel.name}
+        chatId={channel.id}
+        type="channel"
+        apiUrl="/api/messages"
+        socketUrl="/api/socket/messages"
+        socketQuery={{ channelId: channel.id, serverId: channel.serverId }}
+        paramKey="channelId"
+        paramValue={channel.id}
+      />
       <ChatInput
-      name={channel.name}
-      type="channel"
-      apiUrl="/api/socket/messages"
-      query={{
-        channelId: channel.id,
-        serverId: channel.serverId
-      }}
+        name={channel.name}
+        type="channel"
+        apiUrl="/api/socket/messages"
+        query={{
+          channelId: channel.id,
+          serverId: channel.serverId,
+        }}
       />
     </div>
   );
