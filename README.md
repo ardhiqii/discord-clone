@@ -24,3 +24,8 @@ You can join the channel with this invitation link: [Join Channel](https://disco
 - Real-time messaging in channels
 - User authentication and profile management with Clerk
 - Responsive design with modern UI components
+
+## Guidelines
+
+This project was developed following a guideline inspired by the video tutorial: [Building a Discord Clone with Next.js](https://youtu.be/ZbX4Ok9YX94?si=Oov9JmdqEmwmmqK-). The tutorial provides a comprehensive walkthrough of building a similar chat application using Next.js, covering setup, feature implementation, and best practices.
+
