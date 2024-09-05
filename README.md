@@ -13,7 +13,7 @@ You can join the channel with this invitation link: [Join Channel](https://disco
 ## Tech Stack
 
 - **Web Framework:** [Next.js](https://nextjs.org/)
-- **UI Library:** [shadcn](https://shadcn.dev/)
+- **UI Library:** [shadcn](https://ui.shadcn.com/)
 - **Database:** [PostgreSQL (Supabase)](https://supabase.com/)
 - **ORM:** [Prisma](https://www.prisma.io/)
 - **File Upload:** [uploadthing](https://uploadthing.com/)
